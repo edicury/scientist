@@ -3,7 +3,14 @@ name = "scientist"
 version = "0.1.0"
 authors = ["edicury <edisoncuryn@gmail.com>"]
 edition = "2018"
+description = "Machine Learning Algorithms in Rust"
+repository = "https://github.com/edicury/scientist"
+license = "MIT OR Apache-2.0"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[lib]
+name = "scientist"
+path = "src/lib.rs"
+
 
 [dependencies]
