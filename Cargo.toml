@@ -12,5 +12,10 @@ license = "MIT OR Apache-2.0"
 name = "scientist"
 path = "src/lib.rs"
 
+[[bin]]
+name = "scientist"
+path = "src/bin.rs"
+
 
 [dependencies]
+koala = "0.1.0"
