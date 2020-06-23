@@ -24,8 +24,9 @@ impl<'a> Model for LinearRegressor<'a> {
         }
     }
 
-    fn fit(&mut self, x_train: Vec<Vec<f64>>, y_train: Vec<f64>) {
+    fn fit(&mut self, x_train: &Vec<Vec<f64>>, y_train: &Vec<f64>) {
         let n : f64 = x_train.len() as f64;
+        let x_training = x_train.to_vec();
         let alpha : f64 = 0.0001;
         let mut a_0: Vec<Vec<f64>> = array::zeros_from_pair((n as usize, 1)).values;
         let mut a_1: Vec<Vec<f64>> = array::zeros_from_pair((n as usize, 1)).values;
@@ -35,13 +36,13 @@ impl<'a> Model for LinearRegressor<'a> {
 
         while epochs < 2 {
             let summed : Vec<Vec<f64>> = sum_matrices(&[&a_0, &a_1].to_vec(), None);
-            y = multiply_matrices(&[&x_train, &summed].to_vec(), None);
-            let error_val = subtract_matrices(&[&y, &x_train].to_vec(), None);
+            y = multiply_matrices(&[&x_training, &summed].to_vec(), None);
+            let error_val = subtract_matrices(&[&y, &x_training].to_vec(), None);
             let sq_er_ar = pow_matrix(&error_val, 2, None);
             let mut mean_sq_er = get_sum(&sq_er_ar);
             mean_sq_er = mean_sq_er/n;
             let corrected_alpha_0 = Wrapping(alpha * 2 as f64 * (get_sum(&error_val) / n) as f64);
-            let multiplied_error = multiply_matrices(&[&error_val, &x_train].to_vec(), None);
+            let multiplied_error = multiply_matrices(&[&error_val, &x_training].to_vec(), None);
             let correct_alpha_1 = Wrapping(alpha * 2 as f64 * (get_sum(&multiplied_error)/n) as f64);
             a_0 = subtract_matrix(&a_0, corrected_alpha_0.0 as f64, None);
             a_1 = subtract_matrix(&a_1, correct_alpha_1.0 as f64, None);
@@ -53,7 +54,7 @@ impl<'a> Model for LinearRegressor<'a> {
         self.a_1 = Some(a_1.to_vec());
     }
 
-    fn predict(&self, x_axis: Vec<Vec<f64>>) -> Vec<Vec<f64>> {
+    fn predict(&self, x_axis: &Vec<Vec<f64>>) -> Vec<Vec<f64>> {
         let a_0 = self.a_0.as_ref().expect("Model was not trained yet");
         let a_1 = self.a_1.as_ref().expect("Model was not trained yet");
 

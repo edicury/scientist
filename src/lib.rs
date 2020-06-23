@@ -23,10 +23,9 @@ pub fn test () {
     let y_train: Vec<f64> = df["y"].iter().map(|x| x.deref().deref().trim().parse().unwrap()).collect();
     let mut model : LinearRegressor = LinearRegressor::new(None);
 
-    println!("y_train {:?}", y_train);
+     model.fit(&x_train, &y_train);
 
-//     model.fit(x_train, y_train);
+    let predictions = model.predict(&x_train);
 
-
-//    println!("Model: {:?}", model);
+    println!("Preds: {:?}", predictions);
 }
