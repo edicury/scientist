@@ -1,4 +1,5 @@
-use crate::utils::math::pow;
+use crate::utils::math::{pow, absolute};
+use std::ops::Deref;
 
 pub struct Shape {
     pub length: usize,
@@ -94,6 +95,17 @@ pub fn get_2d_multiplied_sum(x: &Vec<f64>, y: &Vec<f64>) -> f64 {
     sum
 }
 
+
+pub fn subtract_2d_vectors(vec1: &Vec<f64>, vec2: &Vec<f64>) -> Vec<f64> {
+    let mut subtracted : Vec<f64> = Vec::new();
+
+    for i in 0..vec1.len() {
+        subtracted.push(vec1[i] - vec2[i]);
+    }
+
+    subtracted
+}
+
 pub fn pow_matrix(array: &Vec<Vec<f64>>, power: u32, initial: Option<f64>) -> Vec<Vec<f64>> {
     let rows: usize = array.len();
     let cols: usize = array[0].len();
@@ -168,4 +180,10 @@ pub fn multiply_matrix(matrix: &Vec<Vec<f64>>, value: f64, initial: Option<f64>)
 }
 pub fn divide_matrix(matrix: &Vec<Vec<f64>>, value: f64, initial: Option<f64>) -> Vec<Vec<f64>> {
     operate_matrix(matrix, value, "/", Some(initial.unwrap_or(1 as f64)))
+}
+
+pub fn absolute_vec(vec: Vec<f64>) -> Vec<f64> {
+    let absolute_vec = vec.iter().map(|x| absolute(*x)).collect();
+
+    absolute_vec
 }

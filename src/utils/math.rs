@@ -47,3 +47,11 @@ pub fn solve_system(mut system: Vec<Vec<f64>>) -> Option<Vec<f64>> {
     }
     return Some(solutions);
 }
+
+pub fn absolute(value: f64) -> f64 {
+    return if value < 0f64 {
+        -1. * value
+    } else {
+        value
+    }
+}
