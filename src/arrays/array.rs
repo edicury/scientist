@@ -1,4 +1,4 @@
-use std::num::Wrapping;
+use crate::utils::math::pow;
 
 pub struct Shape {
     pub length: usize,
@@ -72,6 +72,24 @@ pub fn get_sum(array: &Vec<Vec<f64>>) -> f64 {
         for j in 0..array[i].len() {
             sum += array[i][j];
         }
+    }
+    sum
+}
+
+
+pub fn get_2d_sum(array: &Vec<f64>, power: usize) -> f64 {
+    let mut sum: f64 = 0.;
+    for i in array.iter() {
+        sum += pow(*i, power);
+    }
+    sum
+}
+
+pub fn get_2d_multiplied_sum(x: &Vec<f64>, y: &Vec<f64>) -> f64 {
+    let mut sum: f64 = 0.;
+
+    for i in 0..x.len() {
+        sum += x[i]*y[i];
     }
     sum
 }
