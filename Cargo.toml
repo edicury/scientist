@@ -1,6 +1,6 @@
 [package]
 name = "scientist"
-version = "0.1.1"
+version = "0.1.2"
 authors = ["edicury <edisoncuryn@gmail.com>"]
 edition = "2018"
 description = "Machine Learning Algorithms in Rust"
@@ -12,9 +12,4 @@ license = "MIT OR Apache-2.0"
 name = "scientist"
 path = "src/lib.rs"
 
-[[bin]]
-name = "scientis"
-path = "src/bin.rs"
-
 [dependencies]
-koala = "0.1.5"
