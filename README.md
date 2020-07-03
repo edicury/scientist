@@ -32,7 +32,6 @@ LinearRegressor
    
        let mut model : LinearRegression = LinearRegression::new();
    
-       println!("\n\n\n");
        model.fit(&x_train, &y_train);
    
        let preds = model.predict(&[[1.5].to_vec()].to_vec());
