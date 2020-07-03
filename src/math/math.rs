@@ -55,3 +55,11 @@ pub fn absolute(value: f64) -> f64 {
         value
     }
 }
+
+
+pub fn sigmoid(value: f64) -> f64 {
+    let negative: f64 = -1. * value;
+    let value  = 1./(1. + negative.exp());
+
+    value
+}

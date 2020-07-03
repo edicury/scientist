@@ -1,5 +1,4 @@
-use crate::utils::math::{pow, absolute};
-use std::ops::Deref;
+use crate::math::math::{pow, absolute};
 
 pub struct Shape {
     pub length: usize,
@@ -8,19 +7,38 @@ pub struct Shape {
 }
 
 pub fn zeros(n: usize) -> Vec<f64> {
+    fill(n, 0.)
+}
+
+pub fn zeros_from_pair(n: (usize, usize)) -> Shape {
+    fill_from_pair(n, 0.)
+}
+
+pub fn ones(n: usize) -> Vec<f64> {
+    fill(n, 1.)
+}
+
+
+pub fn ones_from_pair(n: (usize, usize)) -> Shape {
+    fill_from_pair(n, 1.)
+}
+
+
+pub fn fill(n: usize, value: f64) -> Vec<f64> {
     let mut arr: Vec<f64> = Vec::new();
     for _i in 0..n {
-        arr.push(0 as f64);
+        arr.push(value);
     }
     arr
 }
 
-pub fn zeros_from_pair(n: (usize, usize)) -> Shape {
+
+fn fill_from_pair(n: (usize, usize), value: f64) -> Shape {
     let mut arr: Vec<Vec<f64>> = Vec::new();
     for i in 0..n.0 {
         arr.push(Vec::new());
         for _j in 0..n.1 {
-            arr[i].push(0 as f64);
+            arr[i].push(value);
         }
     }
     Shape { values:  arr, shape: n.1, length: n.0 }
@@ -86,11 +104,33 @@ pub fn get_2d_sum(array: &Vec<f64>, power: usize) -> f64 {
     sum
 }
 
+pub fn get_3d_sum(array: &Vec<Vec<f64>>, power: usize) -> f64 {
+    let mut sum: f64 = 0.;
+
+    for i in array.iter() {
+        for j in 0..i.len() {
+            sum += pow(i[j], power);
+        }
+    }
+    sum
+}
+
 pub fn get_2d_multiplied_sum(x: &Vec<f64>, y: &Vec<f64>) -> f64 {
     let mut sum: f64 = 0.;
 
     for i in 0..x.len() {
         sum += x[i]*y[i];
+    }
+    sum
+}
+
+pub fn get_3d_into_2d_sum(x: &Vec<Vec<f64>>, y: &Vec<f64>) -> f64 {
+    let mut sum: f64 = 0.;
+
+    for i in 0..x.len() {
+        for j in 0..x[i].len() {
+            sum += x[i][j]*y[i];
+        }
     }
     sum
 }
@@ -182,8 +222,4 @@ pub fn divide_matrix(matrix: &Vec<Vec<f64>>, value: f64, initial: Option<f64>) -
     operate_matrix(matrix, value, "/", Some(initial.unwrap_or(1 as f64)))
 }
 
-pub fn absolute_vec(vec: Vec<f64>) -> Vec<f64> {
-    let absolute_vec = vec.iter().map(|x| absolute(*x)).collect();
-
-    absolute_vec
-}
+pub fn absolute_vec(vec: Vec<f64>) -> Vec<f64> {  vec.iter().map(|x| absolute(*x)).collect() }

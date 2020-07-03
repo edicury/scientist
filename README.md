@@ -27,16 +27,16 @@ LinearRegressor
     extern crate scientist;
     use scientist::models::linear::{LinearRegression};
 
-    let x_train : Vec<f64> = [1.1, 1.3, 1.5, 2.0, 2.2, 2.9, 3.0].to_vec(); // Years of experience
-    let y_train : Vec<f64> = [39343, 46205, 37731, 43525, 39891, 56642, 60150].to_vec(); // Annual salary
-
-    let model = LinearRegression::new(None); // random_state = None
-    
-    model.fit(&x_train, &y_train);
-
-    let prediction = model.predict(&[1.5].to_vec());
-
-    println!("Prediction: ${:?}", prediction); // Prediction: $41434.737394958
+       let x_train : Vec<Vec<f64>> = [[1.1].to_vec(), [1.3].to_vec(), [1.5].to_vec(), [2.0].to_vec(), [2.2].to_vec(), [2.9].to_vec(), [3.0].to_vec()].to_vec();
+       let y_train : Vec<f64> = [39343., 46205., 37731., 43525., 39891., 56642., 60150.].to_vec();
+   
+       let mut model : LinearRegression = LinearRegression::new();
+   
+       model.fit(&x_train, &y_train);
+   
+       let preds = m_model.predict(&[[1.5].to_vec()].to_vec());
+   
+       println!("Prediction {:?}", preds); // Prediction: $41434.737394958
 ```    
     
 
